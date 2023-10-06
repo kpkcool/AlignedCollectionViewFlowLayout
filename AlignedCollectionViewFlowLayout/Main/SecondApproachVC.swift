@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SecondApproachVC.swift
 //  AlignedCollectionViewFlowLayout
 //
 //  Created by K Praveen Kumar on 06/10/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SecondApproachVC: UIViewController {
     
     private let testImageUrl: String = "https://www.usaoncanvas.com/images/low_res_oilpainting.jpg"
     static let horizontalSpaceBetweenImages: CGFloat = 4.0
@@ -16,17 +16,17 @@ class ViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.text = "Review Images"
+        label.text = "Review Images • Approach 2"
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var collectionView: UICollectionView = {
-        let alignedFlowLayout = AlignedCollectionViewFlowLayout(horizontalAlignment: .left, verticalAlignment: .top)
-        alignedFlowLayout.minimumLineSpacing = ViewController.verticalSpaceBetweenImages
-        alignedFlowLayout.minimumInteritemSpacing = ViewController.horizontalSpaceBetweenImages
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: alignedFlowLayout)
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = SecondApproachVC.verticalSpaceBetweenImages
+        layout.minimumInteritemSpacing = SecondApproachVC.horizontalSpaceBetweenImages
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.isScrollEnabled = false
         collection.showsVerticalScrollIndicator = false
         collection.showsHorizontalScrollIndicator = false
@@ -64,8 +64,8 @@ class ViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -16),
             collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            collectionView.heightAnchor.constraint(equalToConstant: calculateCollectionViewHeightAndWidth(widthPerItem: ViewController.widthPerItem()).height),
-            collectionView.widthAnchor.constraint(equalToConstant: calculateCollectionViewHeightAndWidth(widthPerItem: ViewController.widthPerItem()).width)
+            collectionView.heightAnchor.constraint(equalToConstant: calculateCollectionViewHeightAndWidth(widthPerItem: SecondApproachVC.widthPerItem()).height),
+            collectionView.widthAnchor.constraint(equalToConstant: calculateCollectionViewHeightAndWidth(widthPerItem: SecondApproachVC.widthPerItem()).width)
         ])
     }
     
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
     }
 }
 //MARK: - CollectionView Methods
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension SecondApproachVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         proposedNumber
@@ -90,17 +90,13 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: ViewController.widthPerItem(), height: ViewController.widthPerItem())
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return CGSize(width: SecondApproachVC.widthPerItem(), height: SecondApproachVC.widthPerItem())
     }
     
 }
 
 //MARK: - Required Methods
-extension ViewController {
+extension SecondApproachVC {
     func calculateCollectionViewHeightAndWidth(widthPerItem: CGFloat) -> CGSize {
         if proposedNumber == 4 {
             let height = widthPerItem
