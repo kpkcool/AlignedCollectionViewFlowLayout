@@ -10,19 +10,22 @@ import UIKit
 class ViewController: UIViewController {
     
     private let testImageUrl: String = "https://www.usaoncanvas.com/images/low_res_oilpainting.jpg"
+    static let horizontalSpaceBetweenImages: CGFloat = 4.0
+    static let verticalSpaceBetweenImages: CGFloat = 4.0
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.text = "Review Images"
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var collectionView: UICollectionView = {
         let alignedFlowLayout = AlignedCollectionViewFlowLayout(horizontalAlignment: .left, verticalAlignment: .top)
-        alignedFlowLayout.minimumLineSpacing = 4
-        alignedFlowLayout.minimumInteritemSpacing = 4
+        alignedFlowLayout.minimumLineSpacing = ViewController.verticalSpaceBetweenImages
+        alignedFlowLayout.minimumInteritemSpacing = ViewController.horizontalSpaceBetweenImages
         let collection = UICollectionView(frame: .zero, collectionViewLayout: alignedFlowLayout)
         collection.isScrollEnabled = false
         collection.showsVerticalScrollIndicator = false
@@ -32,14 +35,14 @@ class ViewController: UIViewController {
         return collection
     }()
     
-    var numberOfImages: Int = 8
+    var numberOfImages: Int = 3
     var proposedNumber: Int {
-        return numberOfImages <= 4 ? 4 : 8
+        return numberOfImages <= 7 ? 4 : 8
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemMint
+        view.backgroundColor = .white
         registerCell()
         setupUI()
     }
@@ -54,7 +57,6 @@ class ViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
-        
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
@@ -64,13 +66,12 @@ class ViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             collectionView.heightAnchor.constraint(equalToConstant: calculateCollectionViewHeightAndWidth(widthPerItem: ViewController.widthPerItem()).height),
             collectionView.widthAnchor.constraint(equalToConstant: calculateCollectionViewHeightAndWidth(widthPerItem: ViewController.widthPerItem()).width)
-            
         ])
     }
     
     static func widthPerItem() -> CGFloat {
         let leftRightPadding: CGFloat = 32.0
-        let spaceBetweenItems: CGFloat = 12.0
+        let spaceBetweenItems: CGFloat = horizontalSpaceBetweenImages * 3
         let availableWidth: CGFloat = UIScreen.main.bounds.width - leftRightPadding - spaceBetweenItems
         return availableWidth / 4
     }

@@ -35,6 +35,7 @@ class ReviewedImageCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -51,31 +52,17 @@ class ReviewedImageCell: UICollectionViewCell {
     func setupViews() {
         contentView.backgroundColor = .clear
         addSubview(containerView)
-
         containerView.addSubview(reviewImage)
         reviewImage.addSubview(coverContainerView)
         coverContainerView.addSubview(numberLabel)
+    
+        containerView.fillSuperview()
+        reviewImage.fillSuperview()
+        coverContainerView.fillSuperview()
         
         NSLayoutConstraint.activate([
-            
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-
-            reviewImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            reviewImage.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            reviewImage.topAnchor.constraint(equalTo: containerView.topAnchor),
-            reviewImage.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            
-            coverContainerView.leadingAnchor.constraint(equalTo: reviewImage.leadingAnchor),
-            coverContainerView.trailingAnchor.constraint(equalTo: reviewImage.trailingAnchor),
-            coverContainerView.topAnchor.constraint(equalTo: reviewImage.topAnchor),
-            coverContainerView.bottomAnchor.constraint(equalTo: reviewImage.bottomAnchor),
-            
             numberLabel.centerXAnchor.constraint(equalTo: reviewImage.centerXAnchor),
             numberLabel.centerYAnchor.constraint(equalTo: reviewImage.centerYAnchor)
-            
         ])
     }
     
@@ -86,5 +73,4 @@ class ReviewedImageCell: UICollectionViewCell {
         }
         coverContainerView.isHidden = count == 0 ? true : false
     }
-    
 }
